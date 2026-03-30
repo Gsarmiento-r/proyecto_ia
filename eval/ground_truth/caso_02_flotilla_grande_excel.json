@@ -1,0 +1,45 @@
+{
+  "id": "caso_02_flotilla_grande_excel",
+  "descripcion": "Solicitud de flotilla grande en Excel con múltiples hojas",
+  "archivo_entrada": "eval/samples/solicitud_constructora_pacifico.xlsx",
+  "tipo_archivo": "excel",
+  "idioma": "es",
+  "salida_esperada": {
+    "cliente": {
+      "nombre": "Constructora del Pacífico S.A.P.I. de C.V.",
+      "rfc": "CPA920715KL3",
+      "giro_empresa": "Construcción de obra civil e infraestructura"
+    },
+    "broker": {
+      "nombre": "Alejandra Torres Vidal",
+      "agencia": "Grupo Asegurador Pacífico"
+    },
+    "prima": {
+      "maxima_esperada": 1200000,
+      "moneda": "MXN"
+    },
+    "flotilla": {
+      "total_vehiculos": 42
+    },
+    "fechas": {
+      "inicio_vigencia": "01/06/2025",
+      "fin_vigencia": "31/05/2026",
+      "devolucion_cotizacion": "20/05/2025",
+      "vencimiento_cobertura_actual": "31/05/2025"
+    },
+    "siniestros": {
+      "total_siniestros": 7,
+      "monto_total_pagado": 380000
+    }
+  },
+  "metricas_esperadas": {
+    "completitud_minima": 0.80,
+    "precision_minima": 0.70,
+    "tiempo_maximo_segundos": 90
+  },
+  "notas_evaluacion": [
+    "El Excel tiene 3 hojas: Datos Generales, Flotilla, Siniestros",
+    "Verificar lectura correcta de todas las hojas",
+    "Verificar suma correcta de la flotilla de 42 vehículos"
+  ]
+}

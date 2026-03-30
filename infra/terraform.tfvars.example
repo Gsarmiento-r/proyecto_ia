@@ -1,0 +1,30 @@
+# =============================================================================
+# infra/terraform.tfvars.example — Valores de ejemplo para variables Terraform
+# Copia este archivo a terraform.tfvars y ajusta los valores.
+# NUNCA subas terraform.tfvars al repositorio.
+# =============================================================================
+
+project_id      = "autos-ai"
+region          = "us-central1"
+zone            = "us-central1-a"
+environment     = "production"
+app_name        = "autos-ai"
+
+container_image = "us-central1-docker.pkg.dev/autos-ai/autos-ai-repo/autos-ai-agent:latest"
+gemini_model    = "gemini-2.0-flash-001"
+
+cloud_run_min_instances = 1
+cloud_run_max_instances = 10
+cloud_run_memory        = "2Gi"
+cloud_run_cpu           = "2"
+
+firestore_location  = "us-central"
+enable_bigquery     = true
+enable_document_ai  = true
+
+labels = {
+  app        = "autos-ai"
+  team       = "seguros-ai"
+  managed-by = "terraform"
+  env        = "production"
+}

@@ -1,0 +1,45 @@
+{
+  "id": "caso_01_flotilla_mediana",
+  "descripcion": "Solicitud estándar de flotilla mediana - empresa de distribución",
+  "archivo_entrada": "eval/samples/solicitud_distribuidora_norte_SA.pdf",
+  "tipo_archivo": "pdf",
+  "idioma": "es",
+  "salida_esperada": {
+    "cliente": {
+      "nombre": "Distribuidora Norte S.A. de C.V.",
+      "rfc": "DNO850312HG7",
+      "giro_empresa": "Distribución de alimentos y bebidas"
+    },
+    "broker": {
+      "nombre": "Carlos Méndez Pérez",
+      "agencia": "Seguros del Norte Agencia S.A."
+    },
+    "prima": {
+      "maxima_esperada": 450000,
+      "moneda": "MXN"
+    },
+    "flotilla": {
+      "total_vehiculos": 15
+    },
+    "fechas": {
+      "inicio_vigencia": "01/04/2025",
+      "fin_vigencia": "31/03/2026",
+      "devolucion_cotizacion": "15/03/2025",
+      "vencimiento_cobertura_actual": "31/03/2025"
+    },
+    "siniestros": {
+      "total_siniestros": 3,
+      "monto_total_pagado": 125000
+    }
+  },
+  "metricas_esperadas": {
+    "completitud_minima": 0.85,
+    "precision_minima": 0.75,
+    "tiempo_maximo_segundos": 60
+  },
+  "notas_evaluacion": [
+    "Verificar que se extraigan correctamente los 15 vehículos",
+    "Verificar que se identifiquen al menos 3 tipos de cobertura",
+    "El CSV debe tener 15 filas (una por vehículo)"
+  ]
+}

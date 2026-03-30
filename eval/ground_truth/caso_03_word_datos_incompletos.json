@@ -1,0 +1,46 @@
+{
+  "id": "caso_03_word_datos_incompletos",
+  "descripcion": "Solicitud en Word con datos parcialmente faltantes — prueba de robustez",
+  "archivo_entrada": "eval/samples/solicitud_logistica_express.docx",
+  "tipo_archivo": "word",
+  "idioma": "es",
+  "salida_esperada": {
+    "cliente": {
+      "nombre": "Logística Express del Centro S.A. de C.V.",
+      "rfc": null,
+      "giro_empresa": "Transporte y logística de última milla"
+    },
+    "broker": {
+      "nombre": "Roberto Guzmán Silva",
+      "agencia": null
+    },
+    "prima": {
+      "maxima_esperada": 280000,
+      "moneda": "MXN"
+    },
+    "flotilla": {
+      "total_vehiculos": 8
+    },
+    "fechas": {
+      "inicio_vigencia": "15/07/2025",
+      "fin_vigencia": "14/07/2026",
+      "devolucion_cotizacion": null,
+      "vencimiento_cobertura_actual": "14/07/2025"
+    },
+    "siniestros": {
+      "total_siniestros": 0,
+      "monto_total_pagado": 0
+    }
+  },
+  "metricas_esperadas": {
+    "completitud_minima": 0.60,
+    "precision_minima": 0.65,
+    "tiempo_maximo_segundos": 45
+  },
+  "notas_evaluacion": [
+    "El documento tiene campos faltantes intencionales",
+    "Verificar que el agente use 'No especificado' correctamente",
+    "Verificar que el agente genere alertas por datos faltantes",
+    "RFC y fecha de devolución son null: el agente debe manejarlo sin error"
+  ]
+}

@@ -1,0 +1,74 @@
+# =============================================================================
+# deployment/cloud_run_service.yaml — Declaración del servicio Cloud Run
+# Uso: gcloud run services replace deployment/cloud_run_service.yaml
+# =============================================================================
+
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: autos-ai-agent
+  namespace: autos-ai
+  annotations:
+    run.googleapis.com/launch-stage: GA
+    run.googleapis.com/ingress: all
+  labels:
+    app: autos-ai
+    managed-by: terraform
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "1"
+        autoscaling.knative.dev/maxScale: "10"
+        run.googleapis.com/cpu-throttling: "false"
+        run.googleapis.com/startup-cpu-boost: "true"
+    spec:
+      serviceAccountName: autos-ai-sa@autos-ai.iam.gserviceaccount.com
+      containerConcurrency: 10
+      timeoutSeconds: 300
+      containers:
+        - image: us-central1-docker.pkg.dev/autos-ai/autos-ai-repo/autos-ai-agent:latest
+          ports:
+            - name: http1
+              containerPort: 8080
+          resources:
+            limits:
+              memory: 2Gi
+              cpu: "2"
+          env:
+            - name: APP_ENV
+              value: production
+            - name: GOOGLE_CLOUD_PROJECT
+              value: autos-ai
+            - name: GOOGLE_CLOUD_LOCATION
+              value: us-central1
+            - name: VERTEXAI_PROJECT
+              value: autos-ai
+            - name: VERTEXAI_LOCATION
+              value: us-central1
+            - name: GEMINI_MODEL
+              value: gemini-2.0-flash-001
+            - name: GCS_BUCKET_SUBMISSIONS
+              value: autos-ai-submissions
+            - name: GCS_BUCKET_OUTPUTS
+              value: autos-ai-outputs
+            - name: FIRESTORE_DATABASE
+              value: "(default)"
+            - name: LOG_LEVEL
+              value: INFO
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 30
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 10
+  traffic:
+    - percent: 100
+      latestRevision: true
